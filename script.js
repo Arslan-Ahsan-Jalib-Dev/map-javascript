@@ -62,7 +62,7 @@ var result = persons.map((val, index) => {
 });
 //console.log(result);
 
-/* 5) Multiply each number with 50 store it in this argument and use it */
+/* 5) Multiply each number with 50 store it in this argument and use it (note this not works in arrow functions in map example) */
 
 let arr1 = [2, 3, 5, 7]
 
@@ -128,7 +128,7 @@ var contained_html = users.map((val, index) => {
 });
 //my_content.innerHTML=contained_html;
 
-/* 9) marks greater than 40 pass else fail */
+/* 9) marks greater than 40 name and result status pass else fail */
 
 const mathStudents = [
     {
@@ -154,11 +154,15 @@ const mathStudents = [
 ]
 
 var result = mathStudents.map((val, index) => {
+    var student_record={};
+    student_record.name=val.name;
     if (val.score > 40) {
-        return val.name + " " + " : Pass";
+         student_record.status="Pass";
+         
     } else {
-        return val.name + " " + " : Fail";
+         student_record.status="Fail";
     }
+    return student_record;
 });
 //console.log(result);
 
@@ -213,30 +217,27 @@ const employees = [
         tax: 900
     },
 ];
-var newEmployeObj = {};
-var new_resultant=[];
+
 var result = employees.map((val, index) => {
-    newEmployeObj.name = val.name;
-    newEmployeObj.netsalery = (val.salary + val.bonus) - val.tax;
-    new_resultant.push(newEmployeObj);
-    
-    return val;
+    var employe_details={};
+    employe_details.name = val.name;
+    employe_details.netsalery = (val.salary + val.bonus) - val.tax;
+    return employe_details;
 });
-//console.log(new_resultant);
+//console.log(result);
 
 /* 13) marks greater than 40 pass else fail return with complete details (not a suitable solution for map method because we ar not geting out put from return array)*/
-var student_record_list=[];
-var student_info={};
 var result = mathStudents.map((val, index) => {
+    student_info={};
     student_info=val;
     if (val.score > 40) {
         student_info.status="pass";
     } else {
         student_info.status="fail";
     }
-    student_record_list.push(student_info);
+    return student_info;
 });
-//console.log(student_record_list);
+//console.log(result);
 
 /* 14) Given the array of radius of circle calculate the area corrosponding to each element*/
 
@@ -270,10 +271,140 @@ var result=myUsers.map((val,index)=>{
     fist_info.age=val.name.length * 10;
     return fist_info;
 });
-console.log(result);
+//console.log(result);
 
 /* 16) implementing our own map method */
-https://www.robinwieruch.de/javascript-map-array/
-https://dev.to/dhilipkmr/implementing-our-own-array-map-method-in-javascript-553m
-https://thewebdev.info/2021/02/14/how-to-use-javascript-array-map-method-with-objects-instead-of-arrays/
-https://scriptverse.academy/tutorials/js-array-map.html  (using map on string)
+var array=[5,6,7,8,9]
+var a=map(inc,array);
+function map(callback,arr){
+    var arr2=[];
+    for(i=0;i<arr.length;i++){
+        arr2[i]=inc(arr[i]);
+    }
+    return arr2;
+}
+function inc(num) {
+  return num=num+1;
+}
+//console.log(a);
+
+/* 17) Extracting object keys with map */
+const originalArray = [
+  { a: 1, b: 'first' },
+  { a: 2, b: 'second' },
+  { a: 3, b: 'third' },
+];
+var result=originalArray.map((val,index)=>{
+    return val.b;
+});
+//console.log(result);
+
+/* 18) Using map to iterate through an object */
+const object = {
+  a: 1,
+  b: 2,
+  c: 3,
+};
+const arry=Object.entries(object);
+var result=arry.map(([key,values])=>{
+    return [key , values *2];
+});
+//console.log(result);
+
+/* 19) Map Method for 2-dimensional Arrays multiply with 2 */
+const myArray = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+ var result=myArray.map((val,index)=>{
+              var b=val.map((number,i)=>{
+                  number=number * 2;
+                  return number;
+              });
+     return b;
+ });
+//console.log(result);
+
+/* 20) The thisValue Parameter (plural Example) (note this not works in arrow functions in map example)*/
+var fruites=['Mango', 'Potato', 'Tomato'];
+
+var result=fruites.map(function(val,index){
+   
+    var value = val + this;
+    return value;
+},'es');
+
+//console.log(result);
+
+/********* Comparisan example with reduce starts picking those examples that returns array only*/
+/* 20) Double the even number */
+
+var arr=[2,3,4,5,67,8,9,10];
+
+/* with map result will be [4,undefined,8,undefined,....] return value for which the condition is not
+satisfied
+*/
+
+/* 21) Get the names of all employess */
+var data=[
+    {
+        name:"Arslan Shakeel",
+        age: 28,
+        salary:80000
+    },
+    {
+        name:"Junaid",
+        age: 26,
+        salary:56000
+    },
+    {
+        name:"Usman",
+        age: 32,
+        salary:78000
+    },
+    {
+        name:"Naem",
+        age: 33,
+        salary:90000
+    },
+    {
+        name:"Khalid",
+        age: 55,
+        salary:56000
+    },
+    {
+        name:"Nouman",
+        age: 23,
+        salary:33000
+    },
+    {
+        name:"Saad",
+        age: 43,
+        salary:45000
+    },
+    {
+        name:"Raja Shaheen",
+        age: 28,
+        salary:90000
+    }
+];
+
+var result=data.map((val,index)=>{
+    return val.name;
+});
+//console.log(result);
+
+/* 22) Use salary property as Lookup for Employee // Grouping Employee With Salary */
+        /*    output
+        0: Array(80001) [ <10 empty slots>, … ]
+        1: Array(56001) [ <10 empty slots>, … ]
+        2: Array(78001) [ <10 empty slots>, … ]
+        3: Array(90001) [ <10 empty slots>, … ]
+        4: Array(56001) [ <10 empty slots>, … ]
+        5: Array(33001) [ <10 empty slots>, … ]
+        6: Array(45001) [ <10 empty slots>, … ]
+        7: Array(90001) [ <10 empty slots>, … ]
+        */
+
+/* 23) Occurence / frequency of each ellement from array of objects */
+
+
+
+
